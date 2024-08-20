@@ -1,0 +1,10 @@
+Flask
+googlemaps
+datetime
+gunicorn
+numpy
+Flask_cors
+scipy
+pytz
+matplotlib
+
