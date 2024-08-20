@@ -19,7 +19,8 @@ app = Flask(__name__)
 CORS(app)
 
 # 输入你的 Google Maps API 金钥，最好从环境变量中读取
-api_key = "AIzaSyCw2T_1-0rF4GgFvzGU6ZwjwLK2t942WW0"
+# api_key = "AIzaSyCw2T_1-0rF4GgFvzGU6ZwjwLK2t942WW0"   # senior
+api_key = "AIzaSyCtHUZ8pvBsTEDL35E23a9slI-kpRwS8c8"  # yuchi
 
 # 初始化 Google Maps Client
 gmaps = googlemaps.Client(key=api_key)
@@ -39,6 +40,7 @@ def calculate_truncated_normal(lower_bound, mean, variance, threshold):
 def calculate_google_maps_time(origin, destination):
     try:
         directions = gmaps.directions(origin, destination, mode="driving", departure_time=int(datetime.now().timestamp()))
+        print(f"Google Maps directions from {origin} to {destination}")
         if directions and len(directions) > 0:
             route = directions[0]
             if "legs" in route and len(route["legs"]) > 0:
@@ -113,6 +115,9 @@ def calculate():
 
     cpss_score = int(data["cpss-score"])
     onset_time = pytz.timezone("Asia/Taipei").localize(datetime.strptime(data["onset-time"], "%Y-%m-%d %H:%M:%S"))
+    print(f"Received data: {data}")
+    print(f"CPSS Score: {cpss_score}")
+    print(f"Onset Time: {onset_time}")
 
     # 使用指定的时区建立当前时间
     current_time = datetime.now(tz=pytz.timezone("Asia/Taipei"))
@@ -141,81 +146,124 @@ def calculate():
         "Cathay General Hospital emergency room",
     ]
 
+    print(f"Origin: {origin}")
+    print(f"Calculating Google Maps times for {destinations}")
     google_maps_times = [calculate_google_maps_time(origin, dest) for dest in destinations]
 
+    print(f"Google Maps times: {google_maps_times}")
+
     # 计算截尾常态分配的概率
-    hospitals = [
-        {
-            "name": "Mackay Memorial Hospital",
-            "prehospital_time": pretransport_time + google_maps_times[0],
-            "lower_bound": pretransport_time + google_maps_times[0] + 540 + p_nLVO * 1860 + (1 - p_nLVO) * (2790 + 7230 - 1530),
-            "mean": pretransport_time + google_maps_times[0] + 1320 + p_nLVO * 2100 + (1 - p_nLVO) * (2790 + 7230),
-            "variance": 474**2 + ((p_nLVO) ** 2) * (146**2) + ((1 - p_nLVO) ** 2) * (930**2),
-        },
-        {
-            "name": "Wanfang Hospital",
-            "prehospital_time": pretransport_time + google_maps_times[1],
-            "lower_bound": pretransport_time + google_maps_times[1] + 300 + p_nLVO * 1080 + (1 - p_nLVO) * (2790 + 7770 - 1530),
-            "mean": pretransport_time + google_maps_times[1] + 960 + p_nLVO * 2100 + (1 - p_nLVO) * (2790 + 7770),
-            "variance": 401**2 + ((p_nLVO) ** 2) * (620**2) + ((1 - p_nLVO) ** 2) * (930**2),
-        },
-        {
-            "name": "Tri-Service General Hospital Songshan Branch",
-            "prehospital_time": pretransport_time + google_maps_times[2],
-            "lower_bound": pretransport_time + google_maps_times[2] + 60 + p_nLVO * 916 + (1 - p_nLVO) * (2790 + 7710 - 1530),
-            "mean": pretransport_time + google_maps_times[2] + 1500 + p_nLVO * 1200 + (1 - p_nLVO) * (2790 + 7710),
-            "variance": 875**2 + ((p_nLVO) ** 2) * (173**2) + ((1 - p_nLVO) ** 2) * (930**2),
-        },
-        {
-            "name": "Taipei City Hospital Renai Branch",
-            "prehospital_time": pretransport_time + google_maps_times[3],
-            "lower_bound": pretransport_time + google_maps_times[3] + 540 + p_nLVO * 916 + (1 - p_nLVO) * (2790 + 7350 - 1530),
-            "mean": pretransport_time + google_maps_times[3] + 1500 + p_nLVO * 1200 + (1 - p_nLVO) * (2790 + 7350),
-            "variance": 584**2 + ((p_nLVO) ** 2) * (173**2) + ((1 - p_nLVO) ** 2) * (930**2),
-        },
-        {
-            "name": "Tri-Service General Hospital",
-            "prehospital_time": pretransport_time + google_maps_times[4],
-            "lower_bound": pretransport_time + google_maps_times[4] + p_nLVO * (60 + 1140) + (1 - p_nLVO) * 4860,
-            "mean": pretransport_time + google_maps_times[4] + p_nLVO * (720 + 2940) + (1 - p_nLVO) * 9720,
-            "variance": ((p_nLVO) ** 2) * (401**2 + 1094**2) + ((1 - p_nLVO) ** 2) * (2954**2),
-        },
-        {
-            "name": "National Taiwan University Hospital Department of Emergency Medicine",
-            "prehospital_time": pretransport_time + google_maps_times[5],
-            "lower_bound": pretransport_time + google_maps_times[5] + p_nLVO * (240 + 960) + (1 - p_nLVO) * 2100,
-            "mean": pretransport_time + google_maps_times[5] + p_nLVO * (1200 + 1980) + (1 - p_nLVO) * 7110,
-            "variance": ((p_nLVO) ** 2) * (584**2 + 620**2) + ((1 - p_nLVO) ** 2) * (3046**2),
-        },
-        {
-            "name": "Taipei Veterans General Hospital",
-            "prehospital_time": pretransport_time + google_maps_times[6],
-            "lower_bound": pretransport_time + google_maps_times[6] + p_nLVO * (120 + 1320) + (1 - p_nLVO) * 4500,
-            "mean": pretransport_time + google_maps_times[6] + p_nLVO * (1200 + 1920) + (1 - p_nLVO) * 6030,
-            "variance": ((p_nLVO) ** 2) * (657**2 + 365**2) + ((1 - p_nLVO) ** 2) * (930**2),
-        },
-        {
-            "name": "Taipei Medical University Hospital",
-            "prehospital_time": pretransport_time + google_maps_times[7],
-            "lower_bound": pretransport_time + google_maps_times[7] + p_nLVO * (0 + 1140) + (1 - p_nLVO) * 5940,
-            "mean": pretransport_time + google_maps_times[7] + p_nLVO * (930 + 2070) + (1 - p_nLVO) * 14610,
-            "variance": ((p_nLVO) ** 2) * (565**2 + 565**2) + ((1 - p_nLVO) ** 2) * (5271**2),
-        },
-        {
-            "name": "Shin Kong Wu Ho-Su Memorial Hospital",
-            "prehospital_time": pretransport_time + google_maps_times[8],
-            "lower_bound": pretransport_time + google_maps_times[8] + p_nLVO * (120 + 2280) + (1 - p_nLVO) * 5820,
-            "mean": pretransport_time + google_maps_times[8] + p_nLVO * (1080 + 2820) + (1 - p_nLVO) * 9960,
-            "variance": ((p_nLVO) ** 2) * (584**2 + 328**2) + ((1 - p_nLVO) ** 2) * (2517**2),
-        },
-        {
-            "name": "Cathay General Hospital emergency room",
-            "prehospital_time": pretransport_time + google_maps_times[9],
-            "lower_bound": pretransport_time + google_maps_times[9] + p_nLVO * (360 + 1380) + (1 - p_nLVO) * 9120,
-            "mean": pretransport_time + google_maps_times[9] + p_nLVO * (1620 + 2580) + (1 - p_nLVO) * 10170,
-            "variance": ((p_nLVO) ** 2) * (766**2 + 729**2) + ((1 - p_nLVO) ** 2) * (638**2),
-        },
-    ]
+    hospitals = []
+
+    if google_maps_times[0] is not None:
+        hospitals.append(
+            {
+                "name": "Mackay Memorial Hospital",
+                "prehospital_time": pretransport_time + google_maps_times[0],
+                "lower_bound": pretransport_time + google_maps_times[0] + 540 + p_nLVO * 1860 + (1 - p_nLVO) * (2790 + 7230 - 1530),
+                "mean": pretransport_time + google_maps_times[0] + 1320 + p_nLVO * 2100 + (1 - p_nLVO) * (2790 + 7230),
+                "variance": 474**2 + ((p_nLVO) ** 2) * (146**2) + ((1 - p_nLVO) ** 2) * (930**2),
+            }
+        )
+
+    if google_maps_times[1] is not None:
+        hospitals.append(
+            {
+                "name": "Wanfang Hospital",
+                "prehospital_time": pretransport_time + google_maps_times[1],
+                "lower_bound": pretransport_time + google_maps_times[1] + 300 + p_nLVO * 1080 + (1 - p_nLVO) * (2790 + 7770 - 1530),
+                "mean": pretransport_time + google_maps_times[1] + 960 + p_nLVO * 2100 + (1 - p_nLVO) * (2790 + 7770),
+                "variance": 401**2 + ((p_nLVO) ** 2) * (620**2) + ((1 - p_nLVO) ** 2) * (930**2),
+            }
+        )
+
+    if google_maps_times[2] is not None:
+        hospitals.append(
+            {
+                "name": "Tri-Service General Hospital Songshan Branch",
+                "prehospital_time": pretransport_time + google_maps_times[2],
+                "lower_bound": pretransport_time + google_maps_times[2] + 60 + p_nLVO * 916 + (1 - p_nLVO) * (2790 + 7710 - 1530),
+                "mean": pretransport_time + google_maps_times[2] + 1500 + p_nLVO * 1200 + (1 - p_nLVO) * (2790 + 7710),
+                "variance": 875**2 + ((p_nLVO) ** 2) * (173**2) + ((1 - p_nLVO) ** 2) * (930**2),
+            }
+        ),
+
+    if google_maps_times[3] is not None:
+        hospitals.append(
+            {
+                "name": "Taipei City Hospital Renai Branch",
+                "prehospital_time": pretransport_time + google_maps_times[3],
+                "lower_bound": pretransport_time + google_maps_times[3] + 540 + p_nLVO * 916 + (1 - p_nLVO) * (2790 + 7350 - 1530),
+                "mean": pretransport_time + google_maps_times[3] + 1500 + p_nLVO * 1200 + (1 - p_nLVO) * (2790 + 7350),
+                "variance": 584**2 + ((p_nLVO) ** 2) * (173**2) + ((1 - p_nLVO) ** 2) * (930**2),
+            }
+        )
+
+    if google_maps_times[4] is not None:
+        hospitals.append(
+            {
+                "name": "Tri-Service General Hospital",
+                "prehospital_time": pretransport_time + google_maps_times[4],
+                "lower_bound": pretransport_time + google_maps_times[4] + 60 + p_nLVO * 1140 + (1 - p_nLVO) * 4860,
+                "mean": pretransport_time + google_maps_times[4] + 720 + p_nLVO * 2940 + (1 - p_nLVO) * 9720,
+                "variance": 401**2 + ((p_nLVO) ** 2) * (1094**2) + ((1 - p_nLVO) ** 2) * (2954**2),
+            }
+        )
+
+    if google_maps_times[5] is not None:
+        hospitals.append(
+            {
+                "name": "National Taiwan University Hospital Department of Emergency Medicine",
+                "prehospital_time": pretransport_time + google_maps_times[5],
+                "lower_bound": pretransport_time + google_maps_times[5] + p_nLVO * (240 + 960) + (1 - p_nLVO) * 2100,
+                "mean": pretransport_time + google_maps_times[5] + p_nLVO * (1200 + 1980) + (1 - p_nLVO) * 7110,
+                "variance": ((p_nLVO) ** 2) * (584**2 + 620**2) + ((1 - p_nLVO) ** 2) * (3046**2),
+            }
+        )
+
+    if google_maps_times[6] is not None:
+        hospitals.append(
+            {
+                "name": "Taipei Veterans General Hospital",
+                "prehospital_time": pretransport_time + google_maps_times[6],
+                "lower_bound": pretransport_time + google_maps_times[6] + p_nLVO * (120 + 1320) + (1 - p_nLVO) * 4500,
+                "mean": pretransport_time + google_maps_times[6] + p_nLVO * (1200 + 1920) + (1 - p_nLVO) * 6030,
+                "variance": ((p_nLVO) ** 2) * (657**2 + 365**2) + ((1 - p_nLVO) ** 2) * (930**2),
+            }
+        )
+
+    if google_maps_times[7] is not None:
+        hospitals.append(
+            {
+                "name": "Taipei Medical University Hospital",
+                "prehospital_time": pretransport_time + google_maps_times[7],
+                "lower_bound": pretransport_time + google_maps_times[7] + p_nLVO * (0 + 1140) + (1 - p_nLVO) * 5940,
+                "mean": pretransport_time + google_maps_times[7] + p_nLVO * (930 + 2070) + (1 - p_nLVO) * 14610,
+                "variance": ((p_nLVO) ** 2) * (565**2 + 565**2) + ((1 - p_nLVO) ** 2) * (5271**2),
+            }
+        )
+
+    if google_maps_times[8] is not None:
+        hospitals.append(
+            {
+                "name": "Shin Kong Wu Ho-Su Memorial Hospital",
+                "prehospital_time": pretransport_time + google_maps_times[8],
+                "lower_bound": pretransport_time + google_maps_times[8] + p_nLVO * (120 + 2280) + (1 - p_nLVO) * 5820,
+                "mean": pretransport_time + google_maps_times[8] + p_nLVO * (1080 + 2820) + (1 - p_nLVO) * 9960,
+                "variance": ((p_nLVO) ** 2) * (584**2 + 328**2) + ((1 - p_nLVO) ** 2) * (2517**2),
+            }
+        )
+
+    if google_maps_times[9] is not None:
+        hospitals.append(
+            {
+                "name": "Cathay General Hospital emergency room",
+                "prehospital_time": pretransport_time + google_maps_times[9],
+                "lower_bound": pretransport_time + google_maps_times[9] + p_nLVO * (360 + 1380) + (1 - p_nLVO) * 9120,
+                "mean": pretransport_time + google_maps_times[9] + p_nLVO * (1620 + 2580) + (1 - p_nLVO) * 10170,
+                "variance": ((p_nLVO) ** 2) * (766**2 + 729**2) + ((1 - p_nLVO) ** 2) * (638**2),
+            }
+        )
 
     # 计算每个医院的概率
     for hospital in hospitals:
