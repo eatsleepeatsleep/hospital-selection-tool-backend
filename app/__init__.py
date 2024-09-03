@@ -267,9 +267,9 @@ def calculate():
     for hospital in hospitals:
         hospital["probability"] = calculate_truncated_normal(hospital["lower_bound"], hospital["mean"], hospital["variance"], 5 * 60 * 60)
         hospital["google_map_url"] = generate_google_map_link(hospital["name"])
-        hospital["plot_base64"] = plot_truncated_normal(
-            hospital["name"], hospital["prehospital_time"], hospital["lower_bound"], hospital["mean"], hospital["variance"], 5 * 60 * 60
-        )
+#        hospital["plot_base64"] = plot_truncated_normal(
+#            hospital["name"], hospital["prehospital_time"], hospital["lower_bound"], hospital["mean"], hospital["variance"], 5 * 60 * 60
+#        )
 
     # 排序医院并取前五大高概率的医院
     top_hospitals = sorted(hospitals, key=lambda x: (x["probability"], -x["mean"]), reverse=True)[:5]
@@ -283,7 +283,7 @@ def calculate():
                 "probability": hospital["probability"],
                 "mean": hospital["mean"],
                 "google_map_url": hospital["google_map_url"],
-                "plot_base64": hospital["plot_base64"],
+#                "plot_base64": hospital["plot_base64"],
             }
             for i, hospital in enumerate(top_hospitals)
         ]
