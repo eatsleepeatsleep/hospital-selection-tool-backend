@@ -91,11 +91,9 @@ def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, va
     plt.axvline(mean_minutes - prehospital_time_minutes, color="#007bff", linestyle="--", label=f"Mean Time: {round(mean_minutes, 3):.3f} minutes")
     plt.title(
         f"The continuous probability distribution of a patient receiving definitive treatment at {hospital_name}",
-        fontsize=10,
-        family="Times New Roman",
-    )  # 设置标题字体
-    plt.xlabel("The mean time from hospital arrival to definitive treatment (minutes)", fontsize=8, family="Times New Roman")  # 设置X轴标签字体
-    plt.ylabel("Probability", fontsize=8, family="Times New Roman")  # 设置Y轴标签字体
+        fontsize=10)  # 设置标题字体
+    plt.xlabel("The mean time from hospital arrival to definitive treatment (minutes)", fontsize=8)  # 设置X轴标签字体
+    plt.ylabel("Probability", fontsize=8)  # 设置Y轴标签字体
     plt.legend(fontsize=8)
 
     img = io.BytesIO()
