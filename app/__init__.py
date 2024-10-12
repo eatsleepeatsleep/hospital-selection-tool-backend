@@ -10,9 +10,11 @@ import matplotlib.pyplot as plt
 import io
 import base64
 import os
+from flask_caching import Cache 
 
 app = Flask(__name__)
 CORS(app)
+cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
 # 输入你的 Google Maps API 金钥，最好从环境变量中读取
 api_key = 'AIzaSyCw2T_1-0rF4GgFvzGU6ZwjwLK2t942WW0'
