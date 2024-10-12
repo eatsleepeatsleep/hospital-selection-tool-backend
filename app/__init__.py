@@ -10,11 +10,9 @@ import matplotlib.pyplot as plt
 import io
 import base64
 import os
-from flask_caching import Cache 
 
 app = Flask(__name__)
 CORS(app)
-cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
 # 输入你的 Google Maps API 金钥，最好从环境变量中读取
 api_key = 'AIzaSyCw2T_1-0rF4GgFvzGU6ZwjwLK2t942WW0'
@@ -50,6 +48,8 @@ def generate_google_map_link(hospital_name):
     google_map_url = f"https://www.google.com/maps/search/?api=1&query={encoded_hospital_name}"
     return google_map_url
 
+
+'''
 def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, variance, threshold):
     sd = np.sqrt(variance)
     x = np.linspace(mean - 4*sd, mean + 4*sd, 1000)
@@ -82,6 +82,7 @@ def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, va
     img_base64 = base64.b64encode(img.getvalue()).decode('utf-8')
     
     return img_base64
+'''
 
 @app.route('/calculate', methods=['POST'])
 def calculate():
