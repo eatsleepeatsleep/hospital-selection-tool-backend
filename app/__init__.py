@@ -49,7 +49,7 @@ def generate_google_map_link(hospital_name):
     return google_map_url
 
 
-'''
+
 def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, variance, threshold):
     sd = np.sqrt(variance)
     x = np.linspace(mean - 4*sd, mean + 4*sd, 1000)
@@ -82,7 +82,6 @@ def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, va
     img_base64 = base64.b64encode(img.getvalue()).decode('utf-8')
     
     return img_base64
-'''
 
 @app.route('/calculate', methods=['POST'])
 def calculate():
