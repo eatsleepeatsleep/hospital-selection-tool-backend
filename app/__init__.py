@@ -15,7 +15,7 @@ app = Flask(__name__)
 CORS(app)
 
 # 输入你的 Google Maps API 金钥，最好从环境变量中读取
-api_key = 'AIzaSyCw2T_1-0rF4GgFvzGU6ZwjwLK2t942WW0'
+api_key = 'AIzaSyCtHUZ8pvBsTEDL35E23a9slI-kpRwS8c8'
 
 # 初始化 Google Maps Client
 gmaps = googlemaps.Client(key=api_key)
