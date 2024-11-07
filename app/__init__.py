@@ -3,7 +3,7 @@ from flask_cors import CORS, cross_origin
 import googlemaps
 from datetime import datetime
 import numpy as np
-from flask_cors import CORS
+#from flask_cors import CORS
 from scipy.stats import norm
 import pytz
 import urllib.parse
@@ -14,15 +14,14 @@ import os
 
 app = Flask(__name__)
 # CORS(app, origins="https://eatsleepeatsleep.github.io")
-CORS(app, resources={r"/calculate": {"origins": "https://eatsleepeatsleep.github.io"}})
+# CORS(app, resources={r"/calculate": {"origins": "https://eatsleepeatsleep.github.io"}})
 
-@app.route('/calculate', methods=['POST'])
-@cross_origin(origins="https://eatsleepeatsleep.github.io")
+#@app.route('/calculate', methods=['POST'])
+#@cross_origin(origins="https://eatsleepeatsleep.github.io")
 
 # 输入你的 Google Maps API 金钥，最好从环境变量中读取
-api_key = 'AIzaSyCtHUZ8pvBsTEDL35E23a9slI-kpRwS8c8'
-# api_key = os.getenv('GOOGLE_MAPS_API_KEY', 'AIzaSyCtHUZ8pvBsTEDL35E23a9slI-kpRwS8c8')
-# gmaps = googlemaps.Client(key=api_key)
+#api_key = 'AIzaSyCtHUZ8pvBsTEDL35E23a9slI-kpRwS8c8'
+api_key = os.getenv('GOOGLE_MAPS_API_KEY', 'AIzaSyCtHUZ8pvBsTEDL35E23a9slI-kpRwS8c8')
 
 # 初始化 Google Maps Client
 gmaps = googlemaps.Client(key=api_key)
@@ -88,6 +87,8 @@ def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, va
     
     return img_base64
 
+@app.route('/calculate', methods=['POST'])
+@cross_origin(origins="https://eatsleepeatsleep.github.io")
 def calculate():
     data = request.get_json()
 
