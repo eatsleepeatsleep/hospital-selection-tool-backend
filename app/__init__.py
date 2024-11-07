@@ -13,8 +13,11 @@ import base64
 import os
 
 app = Flask(__name__)
-CORS(app, origins="https://eatsleepeatsleep.github.io")
-# CORS(app, resources={r"/calculate": {"origins": "https://eatsleepeatsleep.github.io"}})
+# CORS(app, origins="https://eatsleepeatsleep.github.io")
+CORS(app, resources={r"/calculate": {"origins": "https://eatsleepeatsleep.github.io"}})
+
+@app.route('/calculate', methods=['POST'])
+@cross_origin(origins="https://eatsleepeatsleep.github.io")
 
 # 输入你的 Google Maps API 金钥，最好从环境变量中读取
 api_key = 'AIzaSyCtHUZ8pvBsTEDL35E23a9slI-kpRwS8c8'
@@ -85,8 +88,6 @@ def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, va
     
     return img_base64
 
-@app.route('/calculate', methods=['POST'])
-@cross_origin(origins="https://hospital-selection-tool-frontend.onrender.com")
 def calculate():
     data = request.get_json()
 
