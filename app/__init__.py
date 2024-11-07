@@ -48,8 +48,6 @@ def generate_google_map_link(hospital_name):
     google_map_url = f"https://www.google.com/maps/search/?api=1&query={encoded_hospital_name}"
     return google_map_url
 
-
-
 def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, variance, threshold):
     sd = np.sqrt(variance)
     x = np.linspace(mean - 4*sd, mean + 4*sd, 1000)
@@ -72,8 +70,6 @@ def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, va
     plt.xlabel('The mean time from hospital arrival to definitive treatment (minutes)', fontsize=8)#, family='Times New Roman')  # 设置X轴标签字体
     plt.ylabel('Probability', fontsize=8)#, family='Times New Roman')  # 设置Y轴标签字体
     plt.legend(fontsize=8)
-    plt.show()
-    print("hi")
     
     img = io.BytesIO()
     plt.savefig(img, format='png')#, bbox_inches='tight')  # 保存图像时设置 bbox_inches='tight' 以获得更好的图像边界
