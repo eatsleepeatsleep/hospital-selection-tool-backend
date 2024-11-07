@@ -12,13 +12,13 @@ import base64
 import os
 
 app = Flask(__name__)
-# CORS(app, origins="https://hospital-selection-tool-frontend.onrender.com")
-CORS(app, resources={r"/calculate": {"origins": "https://hospital-selection-tool-frontend.onrender.com"}})
+CORS(app, origins="https://hospital-selection-tool-frontend.onrender.com")
+# CORS(app, resources={r"/calculate": {"origins": "https://hospital-selection-tool-frontend.onrender.com"}})
 
 # 输入你的 Google Maps API 金钥，最好从环境变量中读取
-# api_key = 'AIzaSyCtHUZ8pvBsTEDL35E23a9slI-kpRwS8c8'
-api_key = os.getenv('GOOGLE_MAPS_API_KEY', 'AIzaSyCtHUZ8pvBsTEDL35E23a9slI-kpRwS8c8')
-gmaps = googlemaps.Client(key=api_key)
+api_key = 'AIzaSyCtHUZ8pvBsTEDL35E23a9slI-kpRwS8c8'
+# api_key = os.getenv('GOOGLE_MAPS_API_KEY', 'AIzaSyCtHUZ8pvBsTEDL35E23a9slI-kpRwS8c8')
+# gmaps = googlemaps.Client(key=api_key)
 
 # 初始化 Google Maps Client
 gmaps = googlemaps.Client(key=api_key)
