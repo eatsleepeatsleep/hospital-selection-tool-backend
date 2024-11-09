@@ -78,7 +78,7 @@ def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, va
     plt.legend(fontsize=8)
     
     img = io.BytesIO()
-    plt.savefig(img, format='png'), bbox_inches='tight', pad_inches=0)  # 保存图像时设置 bbox_inches='tight' 以获得更好的图像边界
+    plt.savefig(img, format='png'), pad_inches=0)  # 保存图像时设置 bbox_inches='tight' 以获得更好的图像边界
     plt.close()  # 关闭图像
     img.seek(0)
     
