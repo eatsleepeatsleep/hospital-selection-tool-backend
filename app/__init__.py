@@ -72,7 +72,7 @@ def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, va
     plt.axvline(threshold_minutes, color='#333', linestyle='--', label='Threshold')  
     plt.axvline(lower_bound_minutes, color='#00008B', linestyle='--', label=f'PrehospitalTime + Lower Bound: {round(lower_bound_minutes, 3):.3f} minutes')  
     plt.axvline(mean_minutes, color='#007bff', linestyle='--', label=f'PrehospitalTime + Mean Time: {round(mean_minutes, 3):.3f} minutes')   
-    plt.xlim(0, 225)  # 限制 x 軸在 0 到 250 之間
+    plt.xlim(0, 250)  # 限制 x 軸在 0 到 250 之間
     plt.ylim(0, max(y) * 1.1)  # y 軸設置為比最大值多 10%，以便顯示更清楚
     
     plt.title(f'The continuous probability distribution of a patient receiving definitive treatment at {hospital_name}', fontsize=10)#, family='Times New Roman')  # 设置标题字体
