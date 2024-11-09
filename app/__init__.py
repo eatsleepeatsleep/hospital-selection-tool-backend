@@ -8,6 +8,7 @@ from scipy.stats import norm
 import pytz
 import urllib.parse
 import matplotlib.pyplot as plt
+matplotlib.use('Agg')
 import io
 import base64
 import os
@@ -82,7 +83,8 @@ def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, va
     
     img = io.BytesIO()
     plt.savefig(img, format='png', bbox_inches='tight', pad_inches=0)  # 保存图像时设置 bbox_inches='tight' 以获得更好的图像边界
-    plt.close()  # 关闭图像
+    # plt.close()  # 关闭图像
+    plt.close('all')
     img.seek(0)
     
     # 将图像转换为 base64 编码的字符串
