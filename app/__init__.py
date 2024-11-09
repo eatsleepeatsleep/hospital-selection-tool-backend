@@ -8,7 +8,6 @@ from scipy.stats import norm
 import pytz
 import urllib.parse
 import matplotlib.pyplot as plt
-matplotlib.use('Agg')
 import io
 import base64
 import os
