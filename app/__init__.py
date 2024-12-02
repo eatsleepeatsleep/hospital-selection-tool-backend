@@ -8,7 +8,6 @@ from scipy.stats import norm
 import pytz
 import urllib.parse
 import matplotlib.pyplot as plt
-from matplotlib import rcParams
 import io
 import base64
 import os
@@ -76,13 +75,9 @@ def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, va
     plt.xlim(0, 250)  # 限制 x 軸在 0 到 250 之間
     plt.ylim(0, max(y) * 1.1)  # y 軸設置為比最大值多 10%，以便顯示更清楚
 
-
-    # 設置字體為 SimHei (黑體)，這樣就可以顯示中文
-    rcParams['font.family'] = 'SimHei'  # 這會讓 matplotlib 使用黑體字型
-    rcParams['axes.unicode_minus'] = False  # 防止負號顯示成方塊
-    plt.title(f'患者在{hospital_name}接受明確治療的連續機率分佈}', fontsize=10)#, family='Times New Roman')  # 设置标题字体
-    plt.xlabel('患者從症狀發作到接受醫院治療的預期時間', fontsize=8)#, family='Times New Roman')  # 设置X轴标签字体
-    plt.ylabel('機率', fontsize=8)#, family='Times New Roman')  # 设置Y轴标签字体
+    plt.title(f'The continuous probability distribution of a patient receiving definitive treatment', fontsize=10)#, family='Times New Roman')  # 设置标题字体
+    plt.xlabel('The expected time for a patient from onset to receiving in hospital h', fontsize=8)#, family='Times New Roman')  # 设置X轴标签字体
+    plt.ylabel('Probability', fontsize=8)#, family='Times New Roman')  # 设置Y轴标签字体
     plt.legend(fontsize=8)
     
     img = io.BytesIO()
