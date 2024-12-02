@@ -226,7 +226,7 @@ def calculate():
     response_data = {
         'top_hospitals': [
             {
-                'priority': f"{['第一', '第二', '第三'][i]} 推薦",
+                'priority': f"{['第一', '第二', '第三'][i]}推薦",
                 'name': hospital['name'],
                 'probability': hospital['probability'],
                 'mean': hospital['mean'],
