@@ -66,7 +66,7 @@ def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, va
     threshold_minutes = threshold / 60
     prehospital_time_minutes = prehospital_time / 60
     
-    plt.figure(figsize=(12, 12), dpi=300)  # 提高画质，设置更高的 dpi
+    plt.figure(figsize=(10, 6), dpi=300)  # 提高画质，设置更高的 dpi
     plt.fill_between(x_minutes, 0, y, where=(x_minutes < threshold_minutes) & (x_minutes >= lower_bound_minutes), color='grey', alpha=0.5, label='Truncated Area: The probability of receiving definitive treatment within the threshold')
     plt.plot(x_minutes, y, color='black', label='Probability Density Function')  # 将 Density function 改为黑色的线条
     plt.axvline(threshold_minutes, color='#333', linestyle='--', label='Threshold')  
@@ -75,10 +75,11 @@ def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, va
     plt.xlim(0, 250)  # 限制 x 軸在 0 到 250 之間
     plt.ylim(0, max(y) * 1.1)  # y 軸設置為比最大值多 10%，以便顯示更清楚
 
-    plt.title(f'The continuous probability distribution of a patient receiving definitive treatment', fontsize=10)#, family='Times New Roman')  # 设置标题字体
-    plt.xlabel('The expected time for a patient from onset to receiving in hospital h', fontsize=8)#, family='Times New Roman')  # 设置X轴标签字体
-    plt.ylabel('Probability', fontsize=8)#, family='Times New Roman')  # 设置Y轴标签字体
-    plt.legend(fontsize=8)
+    plt.title(f'The continuous probability distribution of a patient receiving definitive treatment', fontsize=16)#, family='Times New Roman')  # 设置标题字体
+    plt.xlabel('The expected time for a patient from onset to receiving in hospital h', fontsize=14)#, family='Times New Roman')  # 设置X轴标签字体
+    plt.ylabel('Probability', fontsize=14)#, family='Times New Roman')  # 设置Y轴标签字体
+    plt.legend(fontsize=12, loc='upper right')
+    plt.tight_layout()
     
     img = io.BytesIO()
     plt.savefig(img, format='png', pad_inches=0)  # 保存图像时设置 bbox_inches='tight' 以获得更好的图像边界
