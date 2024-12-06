@@ -66,7 +66,7 @@ def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, va
     threshold_minutes = threshold / 60
     prehospital_time_minutes = prehospital_time / 60
     
-    plt.figure(figsize=(12, 4), dpi=300)  # 提高画质，设置更高的 dpi
+    plt.figure(figsize=(12, 12), dpi=300)  # 提高画质，设置更高的 dpi
     plt.fill_between(x_minutes, 0, y, where=(x_minutes < threshold_minutes) & (x_minutes >= lower_bound_minutes), color='grey', alpha=0.5, label='Truncated Area: The probability of receiving definitive treatment within the threshold')
     plt.plot(x_minutes, y, color='black', label='Probability Density Function')  # 将 Density function 改为黑色的线条
     plt.axvline(threshold_minutes, color='#333', linestyle='--', label='Threshold')  
