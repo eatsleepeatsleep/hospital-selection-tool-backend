@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import io
 import base64
 import os
-import matplotlib.pyplot as plt
+import matplotlib.font_manager as fm
 from matplotlib import rcParams
 
 app = Flask(__name__)
