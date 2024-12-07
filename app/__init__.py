@@ -11,6 +11,8 @@ import matplotlib.pyplot as plt
 import io
 import base64
 import os
+import matplotlib.pyplot as plt
+from matplotlib import rcParams
 
 app = Flask(__name__)
 # CORS(app, origins="https://eatsleepeatsleep.github.io")
@@ -53,6 +55,10 @@ def generate_google_map_link(hospital_name):
     encoded_hospital_name = urllib.parse.quote(hospital_name)
     google_map_url = f"https://www.google.com/maps/search/?api=1&query={encoded_hospital_name}"
     return google_map_url
+
+# 設定中文字型
+rcParams['font.family'] = 'Microsoft JhengHei'  # 可以根據實際情況設置字型
+rcParams['axes.unicode_minus'] = False  # 解決負號顯示問題
 
 def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, variance, threshold):
     sd = np.sqrt(variance)
