@@ -56,9 +56,6 @@ def generate_google_map_link(hospital_name):
     google_map_url = f"https://www.google.com/maps/search/?api=1&query={encoded_hospital_name}"
     return google_map_url
 
-# 設定中文字型
-rcParams['font.family'] = 'Microsoft JhengHei'  # 可以根據實際情況設置字型
-rcParams['axes.unicode_minus'] = False  # 解決負號顯示問題
 
 def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, variance, threshold):
     sd = np.sqrt(variance)
@@ -71,7 +68,11 @@ def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, va
     mean_minutes = mean / 60
     threshold_minutes = threshold / 60
     prehospital_time_minutes = prehospital_time / 60
-    
+
+# 設定中文字型
+rcParams['font.family'] = 'Noto Sans CJK'  # 可以根據實際情況設置字型
+rcParams['axes.unicode_minus'] = False  # 解決負號顯示問題
+
     plt.figure(figsize=(10, 6), dpi=300)  # 提高画质，设置更高的 dpi
     plt.fill_between(x_minutes, 0, y, where=(x_minutes < threshold_minutes) & (x_minutes >= lower_bound_minutes), color='grey', alpha=0.5, label='治療機率範圍：在 3.75 小時內接受確定治療的機率')
     plt.plot(x_minutes, y, color='black')  # label='Probability Density Function') 将 Density function 改为黑色的线条
