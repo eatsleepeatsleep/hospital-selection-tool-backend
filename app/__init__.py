@@ -237,7 +237,7 @@ def calculate():
         )
 
     # 排序医院并取前五大高概率的医院
-    top_hospitals = sorted(hospitals, key=lambda x: (x['probability'], -x['mean']), reverse=True)[:3]
+    top_hospitals = sorted(hospitals, key=lambda x: (x['probability'], -x['mean']), reverse=True)[:5]
     # top_hospitals = sorted(hospitals, key=lambda x: (-x['probability'], x['mean']))[:3]
 
 
@@ -245,10 +245,11 @@ def calculate():
     response_data = {
         'top_hospitals': [
             {
-                'priority': f"{['第一', '第二', '第三'][i]}推薦",
+                'priority': f"{['第一', '第二', '第三', '第四', '第五'][i]}推薦",
                 'name': hospital['name'],
                 'probability': hospital['probability'],
                 'mean': hospital['mean'],
+                'lower_bound': hospital['lower_bound'],
                 'google_map_url': hospital['google_map_url'],
                 'plot_base64': hospital['plot_base64']
             } for i, hospital in enumerate(top_hospitals)
