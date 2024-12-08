@@ -76,7 +76,7 @@ def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, va
     plt.legend(fontsize=8)
     
     img = io.BytesIO()
-    plt.savefig(img, format='png', bbox_inches='tight')   bbox_inches='tight' 
+    plt.savefig(img, format='png', bbox_inches='tight')
     plt.close()  
     img.seek(0)
     
