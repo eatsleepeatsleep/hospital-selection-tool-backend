@@ -81,10 +81,10 @@ def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, va
     plt.ylim(0, max(y) * 1.1)  # y 軸設置為比最大值多 10%，以便顯示更清楚
 
     # 設定字型
-    plt.title(f'患者接受確定治療的連續機率分佈', fontproperties=font_prop, fontsize=16)  # 设置标题字体
+    # plt.title(f'患者接受確定治療的連續機率分佈', fontproperties=font_prop, fontsize=16)  # 设置标题字体
     plt.xlabel('患者從病發到接受醫院治療的預期時間', fontproperties=font_prop, fontsize=14)  # 设置X轴标签字体
     plt.ylabel('機率', fontproperties=font_prop, fontsize=14)  # 设置Y轴标签字体
-    plt.legend(prop=font_prop, fontsize=12, loc='upper center')
+    plt.legend(prop=font_prop, fontsize=12, loc='upper center', bbox_to_anchor=(0.5, 1.05), ncol=1)
     plt.tight_layout()
     
     img = io.BytesIO()
