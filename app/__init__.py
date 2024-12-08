@@ -75,8 +75,8 @@ def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, va
     plt.fill_between(x_minutes, 0, y, where=(x_minutes < threshold_minutes) & (x_minutes >= lower_bound_minutes), color='grey', alpha=0.5, label='治療機率範圍：在 3.75 小時內接受確定治療的機率')
     plt.plot(x_minutes, y, color='black')  # label='Probability Density Function') 将 Density function 改为黑色的线条
     plt.axvline(threshold_minutes, color='#333', linestyle='--', label='3.75 小時')  
-    plt.axvline(lower_bound_minutes, color='#00008B', linestyle='--', label=f'院前時間 + 最早接受治療時間: {round(lower_bound_minutes, 3):.3f} minutes')  
-    plt.axvline(mean_minutes, color='#007bff', linestyle='--', label=f'院前時間 + 平均接受治療時間: {round(mean_minutes, 3):.3f} minutes')   
+    plt.axvline(lower_bound_minutes, color='#00008B', linestyle='--', label=f'院前時間 + 最早接受治療時間: {round(lower_bound_minutes, 3):.3f} 分鐘')  
+    plt.axvline(mean_minutes, color='#007bff', linestyle='--', label=f'院前時間 + 平均接受治療時間: {round(mean_minutes, 3):.3f} 分鐘')   
     plt.xlim(0, 250)  # 限制 x 軸在 0 到 250 之間
     plt.ylim(0, max(y) * 1.1)  # y 軸設置為比最大值多 10%，以便顯示更清楚
 
@@ -88,17 +88,16 @@ def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, va
     plt.legend(
         prop=font_prop, 
         fontsize=12, 
-        loc='upper center',  # 圖例位置在上方
+        loc='upper right',  # 圖例位置在上方
         bbox_to_anchor=(0.5, 1.05),  # 調整圖例位置
         ncol=1,  # 讓每個項目仍保持在一行
         columnspacing=1.0,  # 控制每兩項之間的距離
-        frameon=False,  # 去掉背景框線，使其更乾淨
         handlelength=2,  # 調整圖例的項目長度，讓它更寬
         labelspacing=1.5  # 控制圖例文字之間的垂直間距
     )
     
     # 保持整體布局不縮放
-    plt.tight_layout(pad=3.0)
+    # plt.tight_layout(pad=3.0)
     
     img = io.BytesIO()
     plt.savefig(img, format='png', pad_inches=0)  # 保存图像时设置 bbox_inches='tight' 以获得更好的图像边界
