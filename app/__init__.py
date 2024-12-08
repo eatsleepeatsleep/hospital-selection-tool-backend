@@ -71,18 +71,18 @@ def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, va
     threshold_minutes = threshold / 60
     prehospital_time_minutes = prehospital_time / 60
     
-    plt.figure(figsize=(10, 6), dpi=300)  # 提高画质，设置更高的 dpi
+    plt.figure(figsize=(10, 6), dpi=150)  # 提高画质，设置更高的 dpi
     plt.fill_between(x_minutes, 0, y, where=(x_minutes < threshold_minutes) & (x_minutes >= lower_bound_minutes), color='grey', alpha=0.5, label='治療機率範圍：在 3.75 小時內接受確定治療的機率')
     plt.plot(x_minutes, y, color='black')  # label='Probability Density Function') 将 Density function 改为黑色的线条
     plt.axvline(threshold_minutes, color='#333', linestyle='--', label='3.75 小時')  
-    plt.axvline(lower_bound_minutes, color='#00008B', linestyle='--', label=f'院前時間 + 最早治療時間: {round(lower_bound_minutes, 3):.3f} minutes')  
-    plt.axvline(mean_minutes, color='#007bff', linestyle='--', label=f'院前時間 + 平均時間: {round(mean_minutes, 3):.3f} minutes')   
+    plt.axvline(lower_bound_minutes, color='#00008B', linestyle='--', label=f'院前時間 + 最早接受治療時間: {round(lower_bound_minutes, 3):.3f} minutes')  
+    plt.axvline(mean_minutes, color='#007bff', linestyle='--', label=f'院前時間 + 平均接受治療時間: {round(mean_minutes, 3):.3f} minutes')   
     plt.xlim(0, 250)  # 限制 x 軸在 0 到 250 之間
     plt.ylim(0, max(y) * 1.1)  # y 軸設置為比最大值多 10%，以便顯示更清楚
 
     # 設定字型
     plt.title(f'患者接受確定治療的連續機率分佈', fontproperties=font_prop, fontsize=16)  # 设置标题字体
-    plt.xlabel('患者從發病到接受醫院治療的預期時間', fontproperties=font_prop, fontsize=14)  # 设置X轴标签字体
+    plt.xlabel('患者從病發到接受醫院治療的預期時間', fontproperties=font_prop, fontsize=14)  # 设置X轴标签字体
     plt.ylabel('機率', fontproperties=font_prop, fontsize=14)  # 设置Y轴标签字体
     plt.legend(prop=font_prop, fontsize=12, loc='upper center')
     plt.tight_layout()
