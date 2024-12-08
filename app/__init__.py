@@ -74,9 +74,9 @@ def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, va
     plt.figure(figsize=(10, 6), dpi=150)  # 提高画质，设置更高的 dpi
     plt.fill_between(x_minutes, 0, y, where=(x_minutes < threshold_minutes) & (x_minutes >= lower_bound_minutes), color='grey', alpha=0.5, label='治療機率範圍：在 3.75 小時內接受確定治療的機率')
     plt.plot(x_minutes, y, color='black')  # label='Probability Density Function') 将 Density function 改为黑色的线条
-    plt.axvline(threshold_minutes, color='#333', linestyle='--', label='3.75 小時')  
     plt.axvline(lower_bound_minutes, color='#00008B', linestyle='--', label=f'院前時間 + 最早接受治療時間： {round(lower_bound_minutes, 3):.3f} 分鐘')  
     plt.axvline(mean_minutes, color='#007bff', linestyle='--', label=f'院前時間 + 平均接受治療時間： {round(mean_minutes, 3):.3f} 分鐘')   
+    plt.axvline(threshold_minutes, color='#333', linestyle='--', label='3.75 小時')  
     plt.xlim(0, 250)  # 限制 x 軸在 0 到 250 之間
     plt.ylim(0, max(y) * 1.1)  # y 軸設置為比最大值多 10%，以便顯示更清楚
 
@@ -237,7 +237,8 @@ def calculate():
         )
 
     # 排序医院并取前五大高概率的医院
-    top_hospitals = sorted(hospitals, key=lambda x: (x['probability'], -x['mean']), reverse=True)[:5]
+    # top_hospitals = sorted(hospitals, key=lambda x: (x['probability'], -x['mean']), reverse=True)[:5]
+    top_hospitals = sorted(hospitals, key=lambda x: (x['probability'], x['mean']), reverse=False)[:5]
     # top_hospitals = sorted(hospitals, key=lambda x: (-x['probability'], x['mean']))[:3]
 
 
