@@ -84,8 +84,21 @@ def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, va
     # plt.title(f'患者接受確定治療的連續機率分佈', fontproperties=font_prop, fontsize=16)  # 设置标题字体
     plt.xlabel('患者從病發到接受醫院治療的預期時間', fontproperties=font_prop, fontsize=14)  # 设置X轴标签字体
     plt.ylabel('機率', fontproperties=font_prop, fontsize=14)  # 设置Y轴标签字体
-    plt.legend(prop=font_prop, fontsize=12, loc='upper center', bbox_to_anchor=(0.5, 1.05), ncol=1)
-    plt.tight_layout()
+    
+    plt.legend(
+        prop=font_prop, 
+        fontsize=12, 
+        loc='upper center',  # 圖例位置在上方
+        bbox_to_anchor=(0.5, 1.05),  # 調整圖例位置
+        ncol=1,  # 讓每個項目仍保持在一行
+        columnspacing=1.0,  # 控制每兩項之間的距離
+        frameon=False,  # 去掉背景框線，使其更乾淨
+        handlelength=2,  # 調整圖例的項目長度，讓它更寬
+        labelspacing=1.5  # 控制圖例文字之間的垂直間距
+    )
+    
+    # 保持整體布局不縮放
+    plt.tight_layout(pad=3.0)
     
     img = io.BytesIO()
     plt.savefig(img, format='png', pad_inches=0)  # 保存图像时设置 bbox_inches='tight' 以获得更好的图像边界
