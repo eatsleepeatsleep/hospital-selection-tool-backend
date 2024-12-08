@@ -11,8 +11,6 @@ import matplotlib.pyplot as plt
 import io
 import base64
 import os
-import matplotlib.font_manager as fm
-from matplotlib import rcParams
 
 app = Flask(__name__)
 # CORS(app, origins="https://eatsleepeatsleep.github.io")
@@ -56,7 +54,6 @@ def generate_google_map_link(hospital_name):
     google_map_url = f"https://www.google.com/maps/search/?api=1&query={encoded_hospital_name}"
     return google_map_url
 
-
 def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, variance, threshold):
     sd = np.sqrt(variance)
     x = np.linspace(mean - 4*sd, mean + 4*sd, 500)
@@ -68,24 +65,20 @@ def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, va
     mean_minutes = mean / 60
     threshold_minutes = threshold / 60
     prehospital_time_minutes = prehospital_time / 60
-
-    # 設定中文字型
-    rcParams['font.family'] = 'Noto Sans CJK'  # 可以根據實際情況設置字型
-    rcParams['axes.unicode_minus'] = False  # 解決負號顯示問題
-
+    
     plt.figure(figsize=(10, 6), dpi=300)  # 提高画质，设置更高的 dpi
-    plt.fill_between(x_minutes, 0, y, where=(x_minutes < threshold_minutes) & (x_minutes >= lower_bound_minutes), color='grey', alpha=0.5, label='治療機率範圍：在 3.75 小時內接受確定治療的機率')
-    plt.plot(x_minutes, y, color='black')  # label='Probability Density Function') 将 Density function 改为黑色的线条
-    plt.axvline(threshold_minutes, color='#333', linestyle='--', label='3.75 小時')  
-    plt.axvline(lower_bound_minutes, color='#00008B', linestyle='--', label=f'院前時間 + 最早治療時間: {round(lower_bound_minutes, 3):.3f} minutes')  
-    plt.axvline(mean_minutes, color='#007bff', linestyle='--', label=f'院前時間 + 平均時間: {round(mean_minutes, 3):.3f} minutes')   
+    plt.fill_between(x_minutes, 0, y, where=(x_minutes < threshold_minutes) & (x_minutes >= lower_bound_minutes), color='grey', alpha=0.5, label='Truncated Area: The probability of receiving definitive treatment within the threshold')
+    plt.plot(x_minutes, y, color='black', label='Probability Density Function')  # 将 Density function 改为黑色的线条
+    plt.axvline(threshold_minutes, color='#333', linestyle='--', label='Threshold')  
+    plt.axvline(lower_bound_minutes, color='#00008B', linestyle='--', label=f'PrehospitalTime + Lower Bound: {round(lower_bound_minutes, 3):.3f} minutes')  
+    plt.axvline(mean_minutes, color='#007bff', linestyle='--', label=f'PrehospitalTime + Mean Time: {round(mean_minutes, 3):.3f} minutes')   
     plt.xlim(0, 250)  # 限制 x 軸在 0 到 250 之間
     plt.ylim(0, max(y) * 1.1)  # y 軸設置為比最大值多 10%，以便顯示更清楚
 
-    plt.title(f'患者接受確定治療的連續機率分佈', fontsize=16)#, family='Times New Roman')  # 设置标题字体
-    plt.xlabel('患者從發病到接受醫院治療的預期時間', fontsize=14)#, family='Times New Roman')  # 设置X轴标签字体
-    plt.ylabel('機率', fontsize=14)#, family='Times New Roman')  # 设置Y轴标签字体
-    plt.legend(fontsize=12, loc='upper center', bbox_to_anchor=(0.5, 1.05), ncol=3)
+    plt.title(f'The continuous probability distribution of a patient receiving definitive treatment', fontsize=16)#, family='Times New Roman')  # 设置标题字体
+    plt.xlabel('The expected time for a patient from onset to receiving in hospital h', fontsize=14)#, family='Times New Roman')  # 设置X轴标签字体
+    plt.ylabel('Probability', fontsize=14)#, family='Times New Roman')  # 设置Y轴标签字体
+    plt.legend(fontsize=12, loc='upper right')
     plt.tight_layout()
     
     img = io.BytesIO()
