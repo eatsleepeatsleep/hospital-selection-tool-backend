@@ -155,70 +155,70 @@ def calculate():
 
     hospitals = [
         {
-            'name': "馬偕紀念醫院",
+            'name': "馬偕紀念醫院 (IVT)",
             'prehospital_time':pretransport_time + google_maps_times[0],
             'lower_bound': pretransport_time + google_maps_times[0] + 0 + p_nLVO * 420 + (1 - p_nLVO) * (2790 + 360 + 1680),
             'mean': pretransport_time + google_maps_times[0] + 1020 + p_nLVO * 2340 + (1 - p_nLVO) * (2790 + 360 + 6846),
             'variance': 288**2 + ((p_nLVO)**2) * (1167**2) + ((1 - p_nLVO)**2) * (3287**2)
         },
         {
-            'name': "萬芳醫院",
+            'name': "萬芳醫院 (IVT)",
             'prehospital_time':pretransport_time + google_maps_times[1],
             'lower_bound': pretransport_time + google_maps_times[1] + 0 + p_nLVO * 1140 + (1 - p_nLVO) * (2790 + 1020 + 1680),
             'mean': pretransport_time + google_maps_times[1] + 1200 + p_nLVO * 2250 + (1 - p_nLVO) * (2790 + 1020 + 6846),
             'variance': 244**2 + ((p_nLVO)**2) * (675**2) + ((1 - p_nLVO)**2) * (3287**2)
         },
         {
-            'name': "三軍總醫院松山分院",
+            'name': "三軍總醫院松山分院 (IVT)",
             'prehospital_time':pretransport_time + google_maps_times[2],
             'lower_bound': pretransport_time + google_maps_times[2] + 120 + p_nLVO * 1142 + (1 - p_nLVO) * (2790 + 960 + 1680),
             'mean': pretransport_time + google_maps_times[2] + 1380 + p_nLVO * 2517 + (1 - p_nLVO) * (2790 + 960 + 6846),
             'variance': 459**2 + ((p_nLVO)**2) * (836**2) + ((1 - p_nLVO)**2) * (3287**2)
         },
         {
-            'name': "臺北市立聯合醫院仁愛院區",
+            'name': "臺北市立聯合醫院仁愛院區 (IVT)",
             'prehospital_time':pretransport_time + google_maps_times[3],
             'lower_bound': pretransport_time + google_maps_times[3] + 120 + p_nLVO * 1142 + (1 - p_nLVO) * (2790 + 420 + 1680),
             'mean': pretransport_time + google_maps_times[3] + 1380 + p_nLVO * 2517 + (1 - p_nLVO) * (2790 + 420 + 6846),
             'variance': 282**2 + ((p_nLVO)**2) * (836**2) + ((1 - p_nLVO)**2) * (3287**2)  
         },
         {
-            'name': "三軍總醫院",
+            'name': "三軍總醫院 (EVT)",
             'prehospital_time':pretransport_time + google_maps_times[4],
             'lower_bound': pretransport_time + google_maps_times[4] + p_nLVO * (0 + 360) + (1 - p_nLVO) * 5400,
             'mean': pretransport_time + google_maps_times[4] + p_nLVO * (480 + 2940) + (1 - p_nLVO) * 8780,
             'variance': ((p_nLVO)**2) * ( 244**2 + 1568**2) +((1 - p_nLVO) **2) * ( 3183**2 )
         },
         {
-            'name': "國立台灣大學醫學院附設醫院急診部",
+            'name': "國立台灣大學醫學院附設醫院急診部 (EVT)",
             'prehospital_time':pretransport_time + google_maps_times[5],
             'lower_bound': pretransport_time + google_maps_times[5] + p_nLVO * (60 + 600) + (1 - p_nLVO) * 1680,
             'mean': pretransport_time + google_maps_times[5] + p_nLVO * (900 + 2070) + (1 - p_nLVO) * 6846,
             'variance': ((p_nLVO)**2) * ( 319**2 + 894**2) +((1 - p_nLVO) **2) * ( 3287**2 ) 
         },
         {
-            'name': "臺北榮民總醫院",
+            'name': "臺北榮民總醫院 (EVT)",
             'prehospital_time':pretransport_time + google_maps_times[6],
             'lower_bound': pretransport_time + google_maps_times[6] + p_nLVO * (0 + 120) + (1 - p_nLVO) * 2580,
             'mean': pretransport_time + google_maps_times[6] + p_nLVO * (900 + 1980) + (1 - p_nLVO) * 6284,
             'variance': ((p_nLVO)**2) * ( 399**2 + 1131**2) +((1 - p_nLVO) **2) * ( 2318**2 ) 
         },
         {
-            'name': "台北醫學大學附設醫院",
+            'name': "台北醫學大學附設醫院 (EVT)",
             'prehospital_time':pretransport_time + google_maps_times[7],
             'lower_bound': pretransport_time + google_maps_times[7] + p_nLVO * (0 + 900) + (1 - p_nLVO) * 5520,
             'mean': pretransport_time + google_maps_times[7] + p_nLVO * (1020 + 2160) + (1 - p_nLVO) * 12358,
             'variance': ((p_nLVO)**2) * ( 343**2 + 766**2) +((1 - p_nLVO) **2 )* ( 5290**2 ) 
         },
         {
-            'name': "新光吳火獅紀念醫院",
+            'name': "新光吳火獅紀念醫院 (EVT)",
             'prehospital_time':pretransport_time + google_maps_times[8],
             'lower_bound': pretransport_time + google_maps_times[8] + p_nLVO * (0 + 1140) + (1 - p_nLVO) * 5400,
             'mean': pretransport_time + google_maps_times[8] + p_nLVO * (1140 + 2520) + (1 - p_nLVO) * 8780,
             'variance': ((p_nLVO)**2) * ( 355**2 + 839**2) +((1 - p_nLVO) **2) * ( 3183**2 ) 
         },
         {
-            'name': "國泰綜合醫院急診室",
+            'name': "國泰綜合醫院急診室 (EVT)",
             'prehospital_time':pretransport_time + google_maps_times[9],
             'lower_bound': pretransport_time + google_maps_times[9] + p_nLVO * (180 + 1080) + (1 - p_nLVO) * 6900,
             'mean': pretransport_time + google_maps_times[9] + p_nLVO * (1500 + 2880) + (1 - p_nLVO) * 10638,
