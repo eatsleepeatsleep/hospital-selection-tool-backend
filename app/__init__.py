@@ -251,6 +251,7 @@ def calculate():
                 'probability': hospital['probability'],
                 'mean': hospital['mean'],
                 'lower_bound': hospital['lower_bound'],
+                'google_maps_times' : hospital['google_maps_times'],
                 'google_map_url': hospital['google_map_url'],
                 'plot_base64': hospital['plot_base64']
             } for i, hospital in enumerate(top_hospitals)
