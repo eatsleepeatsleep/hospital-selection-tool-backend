@@ -242,8 +242,7 @@ def calculate():
     # top_hospitals = sorted(hospitals, key=lambda x: (-round(x['probability'], 3), x['mean']))[:5]
     # top_hospitals = sorted(hospitals, key=lambda x: (-int(x['probability'] * 1000) / 1000, x['mean']))[:5]
     top_hospitals = sorted(hospitals, key=lambda x: (-int(x['probability'] * 100000) / 1000, x['mean']))[:5]
-for hospital in top_hospitals:
-    hospital['percentage'] = f"{int(hospital['probability'] * 100000) / 1000:.3f}%"
+    
 
     # 准备返回的数据
     response_data = {
