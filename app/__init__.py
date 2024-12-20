@@ -251,6 +251,7 @@ def calculate():
                 'priority': f"{['第一', '第二', '第三', '第四', '第五'][i]}推薦",
                 'name': hospital['name'],
                 'probability': hospital['probability'],
+                'percentage': f"{int(hospital['probability'] * 100000) / 1000:.3f}%",  # 無條件捨去後的百分比
                 'mean': hospital['mean'],
                 'lower_bound': hospital['lower_bound'],
                 'google_map_url': hospital['google_map_url'],
