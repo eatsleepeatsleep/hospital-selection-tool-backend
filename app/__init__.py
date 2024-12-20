@@ -255,7 +255,7 @@ def calculate():
                 'mean': hospital['mean'],
                 'lower_bound': hospital['lower_bound'],
                 'google_map_url': hospital['google_map_url'],
-                'google_maps_time': google_maps_times[hospitals.index(hospital)]  # 添加 Google Maps 时间
+                'google_maps_time': google_maps_times[hospitals.index(hospital)],  # 添加 Google Maps 时间
                 'plot_base64': hospital['plot_base64']
             } for i, hospital in enumerate(top_hospitals)
         ]
