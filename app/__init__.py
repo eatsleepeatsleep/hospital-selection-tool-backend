@@ -88,7 +88,7 @@ def plot_truncated_normal(hospital_name, prehospital_time, lower_bound, mean, va
     plt.legend(
         prop=font_prop, 
         fontsize=12, 
-        loc='upper right',  # 圖例位置在上方
+        loc='upper left',  # 圖例位置在上方
         ncol=1,  # 讓每個項目仍保持在一行
         handlelength=2,  # 調整圖例的項目長度，讓它更寬
         labelspacing=1.5  # 控制圖例文字之間的垂直間距
