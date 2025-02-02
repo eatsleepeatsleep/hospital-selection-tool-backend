@@ -246,6 +246,7 @@ def calculate():
 
     # 准备返回的数据
     response_data = {
+        'pretransport_time': pretransport_time,
         'top_hospitals': [
             {
                 'priority': f"{['第一', '第二', '第三', '第四', '第五'][i]}推薦",
