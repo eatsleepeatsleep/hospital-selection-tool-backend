@@ -121,15 +121,15 @@ def calculate():
     pretransport_time = int((current_time - onset_time).total_seconds())
 
 # 這裡cpss_score就是前端所得到mG-Fast的分數
-    if cpss_score == 5:
+    if cpss_score == 1:
         p_nLVO = 1
-    elif cpss_score == 4:
+    elif cpss_score == 2:
         p_nLVO = 0.9714
     elif cpss_score == 3:
         p_nLVO = 0.7317
-    elif cpss_score == 2:
+    elif cpss_score == 4:
         p_nLVO = 0.6111
-    elif cpss_score == 1:
+    elif cpss_score == 5:
         p_nLVO = 0.4615
     else:
         p_nLVO = None
